@@ -1,16 +1,19 @@
 import React from 'react';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
+
 
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      flash: '',
       name: '',
       lastname: '',
       email: '',
       password: '',
-      passwordconf: '',
-      flash: ''
-
+      passwordconf: ''
     };
 
     this.updateField = this.updateField.bind(this);
@@ -25,40 +28,55 @@ class SignUp extends React.Component {
     
   }
 
-  handleSubmit = async event => {
-    // alert('Thank you for having suscribed ' + this.state.email + '!' );
+  handleSubmit = async event => { 
     event.preventDefault();
     fetch("/signup",
-{
-    method:  'POST',
-    headers:  new Headers({
-            'Content-Type':  'application/json'
-    }),
-    body:  JSON.stringify(this.state),
-})
-.then(res  =>  res.json())
-.then(
-    res  =>  this.setState({"flash":  res.flash}),
-    err  =>  this.setState({"flash":  err.flash})
-)
+    { 
+      method:  'POST',
+      headers:  new Headers({
+              'Content-Type':  'application/json'
+      }),
+      body:  JSON.stringify(this.state),
+    })
+    .then(res  =>  res.json())
+    .then(
+      res  =>  this.setState({"flash":  res.flash}),
+      err  =>  this.setState({"flash":  err.flash})
+    )
   }
+
+  
 
   render() {
     return (
       <div>
-      <form onSubmit={this.handleSubmit}>
+
+      <form onSubmit={this.handleSubmit} style={{display: 'flex', flexDirection: 'column', width: '300px', margin: ' 20px auto'}}>
       {Object.keys(this.state).map((keyName, i) => {
+        const flash = this.state.flash
         return (
-          keyName === "flash"
-          ? <p>flash : {this.state.flash}</p>
-          : <div>
-            <label for={keyName}>{keyName}</label><br/>
-            <input type="text" id={keyName} value={this.state[{keyName}]} onChange={this.updateField} /><br/>
-          </div>
+          keyName === "flash" 
+          ? flash != ''
+            ? flash === "User has been signed up!"
+                ? <p style={{background: 'green', padding: '5px'}}>flash : {flash}</p>
+                : <p style={{background: 'red', padding: '5px'}}>flash : {flash}</p>
+            : null
+          : <TextField
+            style={{marginBottom: '30px', border: '1px solid darkGrey', borderRadius: '4px'}}
+            id={keyName}
+            label={keyName}
+            placeholder="Placeholder"
+            multiline
+            variant="filled"
+            value={this.state[{keyName}]}
+            onChange={this.updateField}
+          />
         )
       })
       }
-        <input type="submit" value="Submit" />
+      <Button variant="contained" color="primary" type="submit" value="Submit">
+        Submit
+      </Button>
       </form>
       </div>
     );
