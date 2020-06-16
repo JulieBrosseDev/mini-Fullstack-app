@@ -6,7 +6,6 @@
   "scripts": {
     "start": "node app.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
-
   },
   "author": "wilder",
   "dependencies": {
