@@ -62,7 +62,7 @@ class SignUp extends React.Component {
       <form onSubmit={this.handleSubmit}>
       {Object.keys(this.state).map((keyName, i) => {
         return (
-          keyName != "flash"
+          keyName !== "flash"
         ? <div>
           <label for={keyName}>{keyName}</label><br/>
           <input type="text" id={keyName} value={this.state[{keyName}]} onChange={this.updateField} /><br/>
