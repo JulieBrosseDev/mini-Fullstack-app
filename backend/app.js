@@ -27,7 +27,7 @@ app.post('/signup', (req, res) => {
         email: req.body.email,
         password: req.body.password,
     };
-    connection.query('INSERT INTO users SET ?', data, (err, response, fields) => {
+    connection.query('INSERT INTO users SET ?', data, (err, res, fields) => {
         if (err)
             res.status(500).json({ flash:  err.message });
         else
