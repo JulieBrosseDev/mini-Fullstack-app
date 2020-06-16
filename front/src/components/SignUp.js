@@ -43,17 +43,6 @@ class SignUp extends React.Component {
 )
   }
 
-
-// afterSubmission(event) {
-//   event.preventDefault();
-//   let name = this.state.itemName;
-//   this.setState ({
-//       storedItemName:this.state.itemName
-//   }, function() {
-//       alert(this.state.storedItemName); // Shows the right value!
-//   }
-// }
-
   render() {
     return (
       <div>
