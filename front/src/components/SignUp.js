@@ -50,8 +50,8 @@ class SignUp extends React.Component {
   render() {
     return (
       <div>
-
-      <form onSubmit={this.handleSubmit} style={{display: 'flex', flexDirection: 'column', width: '300px', margin: ' 20px auto'}}>
+      <form onSubmit={this.handleSubmit} style={{display: 'flex', flexDirection: 'column', width: '300px', margin: ' 20px auto', textAlign: 'center'}}>
+      <h2>SIGN UP</h2>
       {Object.keys(this.state).map((keyName, i) => {
         const flash = this.state.flash
         return (
@@ -64,7 +64,7 @@ class SignUp extends React.Component {
           : <TextField
             style={{marginBottom: '30px', border: '1px solid darkGrey', borderRadius: '4px'}}
             id={keyName}
-            label={keyName}
+            label={keyName.toUpperCase()}
             placeholder="Placeholder"
             multiline
             variant="filled"
