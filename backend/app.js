@@ -5,6 +5,8 @@ const  bodyParser  =  require('body-parser');
 const  morgan  =  require('morgan');
 const  app  =  express();
 const connection = require('./helpers/db.js');
+const port = process.env.PORT || 5000;
+
 
 
 app.use(morgan('dev'));
@@ -26,12 +28,10 @@ app.post('/signup', (req, res) => {
         password: req.body.password,
     };
     connection.query('INSERT INTO users SET ?', data, (err, response, fields) => {
-        if(err) {
-           throw err;
-        }else{
-            console.log("THE DATA WAS INSERTED !!!")
-            res.end();
-        }
+        if (error)
+            res.status(500).json({ flash:  error.message });
+        else
+            res.status(200).json({ flash:  "User has been signed up!" });
     });
 });
 

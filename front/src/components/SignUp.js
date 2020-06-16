@@ -8,7 +8,8 @@ class SignUp extends React.Component {
       lastname: '',
       email: '',
       password: '',
-      passwordconf: ''
+      passwordconf: '',
+      flash: ''
 
     };
 
@@ -21,11 +22,25 @@ class SignUp extends React.Component {
     const valueType = event.target.id
     this.setState({
     [valueType] : event.target.value})
+    
   }
 
-  handleSubmit(event) {
-    alert('Thank you for having suscribed ' + this.state.email + '!' );
+  handleSubmit = async event => {
+    // alert('Thank you for having suscribed ' + this.state.email + '!' );
     event.preventDefault();
+    fetch("/signup",
+{
+    method:  'POST',
+    headers:  new Headers({
+            'Content-Type':  'application/json'
+    }),
+    body:  JSON.stringify(this.state),
+})
+.then(res  =>  res.json())
+.then(
+    res  =>  this.setState({"flash":  res.flash}),
+    err  =>  this.setState({"flash":  err.flash})
+)
   }
 
 
@@ -41,19 +56,24 @@ class SignUp extends React.Component {
 
   render() {
     return (
+      <div>
+      {this.state.flash ? <p>{this.state.flash}</p> : null}
 
       <form onSubmit={this.handleSubmit}>
       {Object.keys(this.state).map((keyName, i) => {
         return (
-        <div>
+          keyName != "flash"
+        ? <div>
           <label for={keyName}>{keyName}</label><br/>
           <input type="text" id={keyName} value={this.state[{keyName}]} onChange={this.updateField} /><br/>
         </div>
+        : <p>flash : {this.state.flash}</p>
         )
       })
       }
         <input type="submit" value="Submit" />
       </form>
+      </div>
     );
   }
 }
