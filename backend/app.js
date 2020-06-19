@@ -19,23 +19,58 @@ app.get("/", (req,res) => {
     res.send("youhou");
 })
 
+// const checkData = (data, request, response) => {
+//     var email = data.email
+//     var passwordconf = request.body.passwordconf
+//     var password = data.password
+//     //checkValidation()
+//     const checkEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+//     return(
+//     checkEmail.test(String(email).toLowerCase())
+//     ? password === passwordconf 
+//         ?  connection.query('INSERT INTO users SET ?', data, (err, res, fields) => {
+//             if (err)
+//                 res.status(500).json({ flash:  err.message });
+//             else
+//                 res.status(200).json({ flash:  "User has been signed up!" });
+//             })
+//         : res.status(500).json({ flash: "Please confirm your password again" })
+
+//     : res.status(500).json({ flash: "Please give a correct email" })
+//     )
+// }
+
 
 app.post('/signup', (req, res) => {
     var data  = {
         name: req.body.name,
         lastname: req.body.lastname,
         email: req.body.email,
-        password: req.body.password,
+        password: req.body.password
     };
-    connection.query('INSERT INTO users SET ?', data, (error, response, fields) => {
-        if (error)
-            res.status(500).json({ flash:  error.message });
-        else
-            res.status(200).json({ flash:  "User has been signed up!" });
-    });
+    const request = req
+    const response = res
+    // checkDatat(data, response, request)
+     var email = data.email
+     var passwordconf = req.body.passwordconf
+     var password = data.password
+     //checkValidation()
+     const checkEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+     // *** LATER : PUT ALL THE CODE BELLOW MADE TO CHECK BAD INFORMATION ENTRANCE, IN AN OUTSIDE FUNCTION *** /
+     checkEmail.test(String(email).toLowerCase())
+     ? password === passwordconf 
+         ?  connection.query('INSERT INTO users SET ?', data, (error, response, fields) => {
+             if (error)
+                 res.status(500).json({ flash:  error.message });
+             else
+                 res.status(200).json({ flash:  "User has been signed up!" });
+             })
+         : res.status(500).json({ flash: "Please confirm your password again" })
+
+     : res.status(500).json({ flash: "Please give a correct email" });
 });
 
-/// in case path is not found, return the 'Not Found' 404 code
+// in case path is not found, return the 'Not Found' 404 code
 app.use(function(req, res, next) {
     var  err  =  new  Error('Not Found');
     err.status  =  404;

@@ -3,7 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 
-
+// Password Confirmation is set in the state but not in the db
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -25,9 +25,9 @@ class SignUp extends React.Component {
     const valueType = event.target.id
     this.setState({
     [valueType] : event.target.value})
-    
   }
 
+  // Sends the entered data to the post route in backend
   handleSubmit = async event => { 
     event.preventDefault();
     fetch("/signup",
@@ -46,12 +46,13 @@ class SignUp extends React.Component {
   }
 
   
-
+// Renders the form with material UI. A flash message returns if the User has signed up successfully or precise a precise error of data
   render() {
     return (
       <div>
       <form onSubmit={this.handleSubmit} style={{display: 'flex', flexDirection: 'column', width: '300px', margin: ' 20px auto', textAlign: 'center'}}>
       <h2>SIGN UP</h2>
+      {/* The form takes shows all elements of the state as an input except the flash so a .map is done to transform each element as an input, excluding the flash */}
       {Object.keys(this.state).map((keyName, i) => {
         const flash = this.state.flash
         return (
