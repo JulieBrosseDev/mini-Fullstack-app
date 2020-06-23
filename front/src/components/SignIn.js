@@ -1,6 +1,8 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import {Link} from 'react-router-dom';
+
 
 
 // Password Confirmation is set in the state but not in the db
@@ -46,7 +48,7 @@ class SignIn extends React.Component {
 // Renders the form with material UI. A flash message returns if the User has signed up successfully or precise a precise error of data
   render() {
     return (
-      <div>
+      <div style={{textAlign: 'center'}}>
       <form onSubmit={this.handleSubmit} style={{display: 'flex', flexDirection: 'column', width: '300px', margin: ' 20px auto', textAlign: 'center'}}>
       <h2>SIGN IN</h2>
       {/* The form takes shows all elements of the state as an input except the flash so a .map is done to transform each element as an input, excluding the flash */}
@@ -76,6 +78,7 @@ class SignIn extends React.Component {
         Submit
       </Button>
       </form>
+      <p>Not registered yet ?  <Link to='/signup'>Sign Up</Link></p>
       </div>
     );
   }

@@ -56,14 +56,14 @@ app.post('/signup', (req, res) => {
      var password = data.password
      //checkValidation()
      const checkEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-     // *** LATER : PUT ALL THE CODE BELLOW MADE TO CHECK BAD INFORMATION ENTRANCE, IN AN OUTSIDE FUNCTION *** /
+     // *** LATER : SET ALL THE CODE BELLOW MADE TO CHECK BAD INFORMATION ENTRANCE, IN AN OUTSIDE FUNCTION *** /
      checkEmail.test(String(email).toLowerCase())
      ? password === passwordconf 
          ?  connection.query('INSERT INTO users SET ?', data, (error, response, fields) => {
              if (error)
                  res.status(500).json({ flash:  error.message });
              else
-                 res.status(200).json({ flash:  "User has been signed up!" });
+                res.status(200).json({ flash:  "User has been signed up!" , path: '/profile'})
              })
          : res.status(500).json({ flash: "Please confirm your password again" })
 

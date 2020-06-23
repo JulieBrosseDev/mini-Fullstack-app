@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import {Link} from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 
 
@@ -49,18 +51,21 @@ class Profile extends React.Component {
 // Renders the form with material UI. A flash message returns if the User has signed up successfully or precise a precise error of data
     render() {
         return (
-            <div>
+            <div style={{textAlign: 'center', maxWidth: '30%', margin: '0 auto'}}>
                 <h2>Profile</h2>
                 {/* The form takes shows all elements of the state as an input except the flash so a .map is done to transform each element as an input, excluding the flash */}
                 <List>
                 {Object.keys(this.state).map((keyName, i) => {
                     return (
-                    <ListItem>
-                        <ListItemText primary={keyName} secondary={Object.values(this.state[keyName])}/>
+                    <ListItem >
+                        <ListItemText primary={keyName} secondary={Object.values(this.state[keyName])} style={{textAlign: 'center'}}/>
                     </ListItem>
                     )
                 })}
                 </List>
+                <Link to='/signin'>
+                    <Button variant="contained" color="primary">Log out</Button>
+                </Link>
             </div>
         )
     }
