@@ -1,6 +1,5 @@
 import {MuiThemeProvider} from '@material-ui/core/styles';
 import { Grid, Paper } from '@material-ui/core';
-
 import React from 'react';
 import ReactDOM from "react-dom";
 import './App.css';
@@ -12,6 +11,7 @@ import {
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import Profile from './components/Profile'
+// const bcrypt = require('bcrypt');
 
 
 

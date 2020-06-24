@@ -45,15 +45,6 @@ class SignUp extends React.Component {
       res  =>  this.setState({"flash":  res.flash}),
       err  =>  this.setState({"flash":  err.flash})
     )
-    .then(
-      this.redirection()
-    )
-    console.log(this.state.flash)
-    setTimeout(()=> this.redirection(), 1000)
-  }
-
-  redirection = () => {
-    return this.state.flash === "User has been signed up!" ? '/' : '#'
   }
 
   

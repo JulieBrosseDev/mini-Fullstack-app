@@ -37,11 +37,14 @@ class SignIn extends React.Component {
       }),
       body:  JSON.stringify(this.state),
     })
+   
     .then(res  =>  res.json())
     .then(
       res  =>  this.setState({"flash":  res.flash}),
       err  =>  this.setState({"flash":  err.flash})
     )
+    .then(console.log('step 2'))
+
   }
 
   
@@ -57,7 +60,7 @@ class SignIn extends React.Component {
         return (
           keyName === "flash" 
           ? flash != ''
-            ? flash === "User has been signed up!"
+            ? flash === "You are Signed In"
                 ? <p style={{background: 'green', padding: '5px'}}>flash : {flash}</p>
                 : <p style={{background: 'red', padding: '5px'}}>flash : {flash}</p>
             : null
@@ -74,9 +77,17 @@ class SignIn extends React.Component {
         )
       })
       }
-      <Button variant="contained" color="primary" type="submit" value="Submit">
-        Submit
-      </Button>
+      { console.log(this.state.flash)}
+      { this.state.flash === "Welcome"
+      ? <Link to='/profile'>
+          <Button variant="contained" color="secondary">
+            WATCH MY PROFILE >>
+          </Button>
+        </Link>
+      : <Button variant="contained" color="primary" type="submit" value="Submit">
+          Submit
+        </Button>
+      }
       </form>
       <p>Not registered yet ?  <Link to='/signup'>Sign Up</Link></p>
       </div>
