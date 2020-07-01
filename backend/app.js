@@ -1,17 +1,8 @@
-const  http  =  require('http');
-const  path  =  require('path');
 var express = require('express');
 var passport = require('passport');
-var Strategy = require('passport-local').Strategy;
 
 const connection = require('./helpers/db.js');
-
-
-
-
-
-
-  var app = express();
+var app = express();
 
 // Configure view engine to render EJS templates.
 app.set('views', __dirname + '/views');
@@ -27,21 +18,15 @@ app.use(require('express-session')({ secret: 'keyboard cat', resave: false, save
 // session.
 app.use(passport.initialize());
 app.use(passport.session());
-
-  
   
 const  bodyParser  =  require('body-parser');
 const  morgan  =  require('morgan');
 const port = process.env.PORT || 5000;
 
-
-
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended:  false }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname  +  '/public'));
-
-
 
 app.get('/',
   function(req, res) {
@@ -113,7 +98,7 @@ app.post('/signin', (req, res) => {
    // *** LATER : SET ALL THE CODE BELLOW MADE TO CHECK BAD INFORMATION ENTRANCE, IN AN OUTSIDE FUNCTION *** /
    checkEmail.test(String(data.email).toLowerCase())
        ?  connection.query(`SELECT * FROM users WHERE email = "${data.email}" AND password = "${data.password}"`, (error, response, fields) => {
-        console.log('helloooooooo' + response[0])
+        console.log('helloooooooo' + JSON.stringify(response))
         if (error)
                res.status(500).json({ flash: error.message});
            else
